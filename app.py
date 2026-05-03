@@ -9,7 +9,7 @@ load_dotenv()
 app = Flask(__name__)
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-APPS_SCRIPT_URL = os.getenv("APPS_SCRIPT_URL")  # paste your deployed Apps Script URL in .env
+APPS_SCRIPT_URL = os.getenv("APPS_SCRIPT_URL")
 
 salon_info = """
 You are a friendly assistant for Glamour Studio — a premium salon and barber shop.
@@ -67,7 +67,7 @@ def book():
         return jsonify({"success": False, "error": "Apps Script URL not configured"}), 500
 
     try:
-        r = requests.post(APPS_SCRIPT_URL, json={
+        r = requests.get(APPS_SCRIPT_URL, params={
             "name": name,
             "phone": phone,
             "email": email,
